@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'Reviews/base.html' %}
+
+{% block title %}Register {% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block main %}
+    <form method="POST" action="">
+    {% csrf_token %}
+        {% for field in form %}
+        {{ field.label }}
+        {{ field }}
+            <br>
+        {% endfor %}
+
+    <button type="submit">Create user</button>
+    </form>
+    {{ form.errors }}
+    Already have an account? <a href="{% url 'login' %}" class="ml-2">Sign In</a>
+{% endblock %}

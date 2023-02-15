@@ -4,12 +4,14 @@
 {% block header %} Marvel {% endblock %}
 {% block main %}
     <table>
+        {% for hero in heroes %}
     <tr>
-        <td>1</td>
-        <td><img src="" alt="ironam"></td>
-        <td>Iron Man</td>
-        <td>4.74/5</td>
+        <td>{{ forloop.counter }}</td>
+        <td><img src="../files/{{ hero.img }}" alt="hero.name" width="50px" height="50px"></td>
+        <td>{{ hero.name }}</td>
+        <td>{% widthratio hero.quantity hero.numbers 1 %}/5</td>
         <td><button>Rate!</button></td>
     </tr>
+            {% endfor %}
     </table>
 {% endblock %}

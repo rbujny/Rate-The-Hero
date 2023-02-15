@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -38,7 +39,10 @@ class Hero(models.Model):
 
 class Review(models.Model):
     name = models.CharField(max_length=50)
-    rating = models.FloatField()
+    rating = models.FloatField(default=1, validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1)
+        ])
     text = models.TextField()
     hero = models.ManyToManyField(Hero, blank=False)
 
