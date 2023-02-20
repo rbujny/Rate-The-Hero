@@ -48,7 +48,7 @@ def logoutU(request):
 @login_required(login_url="login")
 def myProfile(request, username):
     if username == request.user.username:
-        review_list = Review.objects.filter(name=username).order_by("?")
+        review_list = Review.objects.filter(name=username)
         p = Paginator(review_list, 10)
         page = request.GET.get('page')
         reviews = p.get_page(page)

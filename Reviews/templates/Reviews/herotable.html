@@ -12,7 +12,7 @@
             </a>
         </td>
         <td>{{ hero.name }}</td>
-        <td>{% widthratio hero.quantity hero.numbers 1 %}/10</td>
+        <td>{{ hero.avg|floatformat:2 }}/10</td>
         <td><a href="{% url 'addRev' hero.id %}"><h4>Rate</h4></a></td>
     </tr>
             {% endfor %}

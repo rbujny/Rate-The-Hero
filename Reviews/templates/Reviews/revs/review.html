@@ -9,7 +9,7 @@
     <div class="content">
     <div class="review">
     <h2>Review about {{ review.hero.get }} by {{ review.name }}</h2>
-    <h3>Rating: {{ review.rating }}</h3>
+    <h3>Rating: {{ review.rating|floatformat:0 }}</h3>
     <h3>Review:</h3>
     <p>{{ review.text }}</p>
     {% if username == review.name %}

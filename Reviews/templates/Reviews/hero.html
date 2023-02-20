@@ -17,7 +17,7 @@
     <li>Name: {{ hero.name }} </li>
     <li>Real name: {{ hero.real_name }} </li>
     <li>Universe: {{ hero.universe.name }} </li>
-    <li>Rating: {% widthratio hero.quantity hero.numbers 1 %}</li>
+    <li>Rating: {{ hero.avg|floatformat:2 }}</li>
     </ul>
     <h2>Description</h2>
     <div class="desc">

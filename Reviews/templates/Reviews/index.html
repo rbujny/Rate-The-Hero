@@ -49,7 +49,7 @@
             <br>
                 <b>{{ hero.name }}</b>
                 <br>
-            {{ hero.avg }} / 10
+            {{ hero.avg|floatformat:2 }} / 10
             </div>
         {% endfor %}
     </div>

@@ -1,6 +1,6 @@
             <tr>
             <td>{{ name }}</td>
-            <td>{{ rating }}</td>
+            <td>{{ rating|floatformat:0 }}</td>
             <td>
                 {{ text|truncatechars:200 }}
                 <a href="{% url 'rev' id %}">

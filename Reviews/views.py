@@ -38,6 +38,9 @@ def index(request):
 def universe(request, uni):
     universe = Universe.objects.get(slug=uni)
     heroes = Hero.objects.all().filter(universe=universe)
+    avg = {}
+    for hero in heroes:
+        hero.avg = hero.quantity/hero.numbers
     return render(request, "Reviews/universe.html", {
         "universe": universe.name,
         "heroes": heroes})
@@ -45,6 +48,7 @@ def universe(request, uni):
 
 def hero(request, hero):
     selected_hero = Hero.objects.get(id=hero)
+    selected_hero.avg = selected_hero.quantity/selected_hero.numbers
     last_reviews = Review.objects.filter(hero=selected_hero)[:5]
     best_reviews = Review.objects.filter(hero=selected_hero).order_by('-rating')[:5]
     return render(request, "Reviews/hero.html", {
