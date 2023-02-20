@@ -1,8 +1,11 @@
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from .forms import RegisterUserFrom
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from Reviews.models import Review
 # Create your views here.
 
 def register(request):
@@ -44,8 +47,29 @@ def logoutU(request):
 
 @login_required(login_url="login")
 def myProfile(request, username):
-    return render(request, 'Users/myprofile.html')
+    if username == request.user.username:
+        review_list = Review.objects.filter(name=username).order_by("?")
+        p = Paginator(review_list, 10)
+        page = request.GET.get('page')
+        reviews = p.get_page(page)
 
-@login_required(login_url="login")
-def delete(request):
-    return redirect('index')
+        if request.method == "POST":
+            for review in reviews:
+                hero = review.hero.get()
+                hero.quantity -= review.rating
+                hero.numbers -= 1
+                review.delete()
+                hero.save()
+            user = User.objects.get(username=username)
+            user.delete()
+            return redirect('index')
+        context = {
+            "username": username,
+            "reviews": reviews,
+            "counter": review_list.count()
+        }
+        return render(request, 'Users/myprofile.html', context)
+    else:
+        return render(request, "Users/notYourProfile.html", {
+            'username': request.user.username
+        })

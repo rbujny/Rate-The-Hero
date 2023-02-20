@@ -11,19 +11,28 @@
     {% block site_styles %}
     {% endblock %}
 </head>
+<body>
+<div class="menu">
+{% block menu %}
+    <span class="menu-base"><a href="{% url 'index' %}">Homepage</a></span>
+    <span class="menu-base"><a href="{% url 'search' %}">Search</a></span>
+{% endblock %}
+</div>
 {% block header %}
 <header>
 Base header
 </header>
 {% endblock %}
-<body>
 {% block main %}
 <main>
 Base main
 </main>
 {% endblock %}
 <footer>
-    © <span id="year">2023</span> Lush Projects - Radosław Bujny
+    ©<span id="year"></span>&nbsp; Lush Projects - Radosław Bujny
 </footer>
+<script src="{% static 'Reviews/scripts/base.js' %}"></script>
+{% block scrpits %}
+{% endblock %}
 </body>
 </html>

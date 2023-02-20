@@ -2,35 +2,55 @@
 {% load static %}
 
 {% block title %}Rate the Heroes{% endblock %}
-{% block header %}
-Rate the Heroes
+{% block site_styles %}
+    <link rel="stylesheet" href="{% static 'Reviews/styles/index.css' %}">
+{% endblock %}
+{% block menu %}
+    <div class="menu">
+    <span class="menu-item"><a href="{% url 'index' %}">Homepage</a></span>
+    <span class="menu-item"><a href="{% url 'search' %}">Search</a></span>
     {% if username == '' %}
-    <button>Log in</button>
-        {% else %}
-        <p>Hello {{ username }}</p> <span><a href="{% url 'logout' %}">Log out</a></span>
+        <span class="menu-item"><a href="{% url 'login' %}">Log in</a></span>
+    {% else %}
+        <span class="menu-item"><a href="{% url 'myProfile' username %}">My profile</a></span>
+            <span class="menu-item"><a href="{% url 'logout' %}">Log out</a></span>
     {% endif %}
+    </div>
+{% endblock %}
+{% block header %}
+    <h1 class="trans">Rate the Heroes</h1>
 {% endblock %}
 {% block main %}
-    <div id="universe-select">
-    {% for universe in universal %}
-     <a href="{% url 'universe' universe.slug %}">
-         <img src="files/{{ universe.img }}" alt="{{ universe.name }}" width="10%" height="10%">
-     </a>
-    {% endfor %}
+            <h2 class="trans">Universal</h2>
+    <div class="universe-select">
+        {% for universe in universal %}
+            <div class="universe">
+            <a href="{% url 'universe' universe.slug %}">
+                <img src="files/{{ universe.img }}" alt="{{ universe.name }}">
+            </a>
+            </div>
+        {% endfor %}
     </div>
-    <div id="most-rated-heroes">
-    {% for hero in mostRated %}
-        <a href="{% url 'hero' hero.id %}"><img src="files/{{ hero.img }}" alt="{{ hero.name }}" width="10%" height="10%"></a> {{ hero.name }}
-    {% endfor %}
-    </div>
-    <div id="best-rated-heroes">
-    {% for hero in bestRated %}
-        <img src="files/{{ hero.img }}" alt="{{ hero.name }}" width="10%" height="10%"> {{ hero.name }}
-    {% endfor %}
-    </div>
-    <div id="most-users">
-        <b>HulkLover972</b> 322 reviews
-        <b>Brian_the_goat</b> 289 reviews
-        <b>Marvel_fannnn</b> 222 reviews
+        <h2 class="trans">Most rated heroes</h2>
+        <div class="heroes">
+        {% for hero in mostRated %}
+            <div class="hero most-rated">
+            <a href="{% url 'hero' hero.id %}"><img src="files/{{ hero.img }}" alt="{{ hero.name }}"></a>
+                <br>
+                <b>{{ hero.name }}</b>
+            </div>
+        {% endfor %}
+        </div>
+        <h2>Best rated heroes</h2>
+        <div class="heroes">
+        {% for hero in bestRated %}
+            <div class="hero best-rated">
+            <a href="{% url 'hero' hero.id %}"> <img src="files/{{ hero.img }}" alt="{{ hero.name }}"></a>
+            <br>
+                <b>{{ hero.name }}</b>
+                <br>
+            {{ hero.avg }} / 10
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

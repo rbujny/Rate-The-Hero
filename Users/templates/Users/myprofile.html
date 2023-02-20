@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'Reviews/base.html' %}
+{% load static %}
+{% block title %}Your profile{% endblock %}
+{% block site_styles %}
+    <link rel="stylesheet" href="{% static 'Users/styles/myprofile.css' %}">
+{% endblock %}
+{% block header %}<h1>Your Profile</h1> {% endblock %}
+{% block main %}
+    <div class="messages">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    </div>
+    <div class="acc-info">
+    <h2>{{ username }}</h2>
+        <form method="POST" action="" onsubmit="return areYouSure()">
+            {% csrf_token %}
+            <button type="submit">Delete account</button>
+        </form>
+    <h2>Quantity of review: {{ counter }}</h2>
+    </div>
+    <h2>Your reviews</h2>
+    <div class="reviews">
+    {% for review in reviews %}
+        <div class="review">
+        <h3>Hero: </h3>{{ review.hero.get }}
+            <h3>Your rating:</h3>
+            {{ review.rating }}
+        <br>
+            <h3>Your review: </h3>
+        {{ review.text }}
+        <br>
+            <a href="{% url 'rev' review.id %}"><h4>See review details</h4></a>
+        </div>
+        <br>
+    {% endfor %}
+    </div>
+    <div class="pagination">
+    {% if reviews.has_previous %}
+        <a href="?page=1">&laquo;First</a>
+        <a href="?page={{ reviews.previous_page_number }}">&laquo;Previous</a>
+    {% endif %}
+    Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}
+    {% if reviews.has_next  %}
+        <a href="?page={{ reviews.next_page_number }}">Next</a>
+        <a href="?page={{ reviews.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+        </div>
+        <script>
+    function areYouSure()
+    {
+        if (confirm("Are you sure")) return true
+        else return false
+    }
+    </script>
+{% endblock %}

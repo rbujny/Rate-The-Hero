@@ -1,17 +1,12 @@
 {% extends 'Reviews/base.html' %}
 {% load static %}
-{% block title %} RTH - Marvel {% endblock %}
-{% block header %} Marvel {% endblock %}
+{% block title %} RTH - {{ universe }} {% endblock %}
+{% block site_styles %}
+    <link rel="stylesheet" href="{% static 'Reviews/styles/universe.css' %}">
+{% endblock %}
+{% block header %}<h1 style="text-transform: uppercase">Marvel</h1>{% endblock %}
 {% block main %}
-    <table>
-        {% for hero in heroes %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td><img src="../files/{{ hero.img }}" alt="hero.name" width="50px" height="50px"></td>
-        <td>{{ hero.name }}</td>
-        <td>{% widthratio hero.quantity hero.numbers 1 %}/5</td>
-        <td><button>Rate!</button></td>
-    </tr>
-            {% endfor %}
-    </table>
+    <div class="content">
+   {% include "Reviews/herotable.html" with heroes=heroes %}
+    </div>
 {% endblock %}

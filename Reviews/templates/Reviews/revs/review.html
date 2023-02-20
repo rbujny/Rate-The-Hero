@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'Reviews/base.html' %}
+{% load static %}
+{% block title %} Review {% endblock %}
+{% block site_styles %}
+    <link rel="stylesheet" href="{% static 'Reviews/styles/review.css' %}">
+{% endblock %}
+{% block header %}{% endblock %}
+{% block main %}
+    <div class="content">
+    <div class="review">
+    <h2>Review about {{ review.hero.get }} by {{ review.name }}</h2>
+    <h3>Rating: {{ review.rating }}</h3>
+    <h3>Review:</h3>
+    <p>{{ review.text }}</p>
+    {% if username == review.name %}
+        <form method="POST" action="" onsubmit="return areYouSure()">
+            {% csrf_token %}
+            <button type="submit">Delete review</button>
+        </form>
+    {% endif %}
+    </div>
+    </div>
+    <script>
+    function areYouSure()
+    {
+        if (confirm("Are you sure")) return true
+        else return false
+    }
+    </script>
+{% endblock %}

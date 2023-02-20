@@ -1,0 +1,39 @@
+.form-position
+{
+    min-height: 300px;
+    min-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form-content
+{
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f3f3;
+    padding: 30px;
+    border: 5px solid wheat;
+    border-radius: 20px;
+    min-width: 500px;
+}
+.form-content input
+{
+    margin: 10px;
+    width: 125px;
+}
+button
+{
+    margin-top: 15px;
+    margin-left: 12px;
+    width: 130px;
+}
+input[type=submit]
+{
+    width: 133px;
+}
+.has-acc
+{
+    margin-top: 15px;
+}

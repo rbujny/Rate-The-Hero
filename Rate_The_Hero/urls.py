@@ -24,6 +24,8 @@ urlpatterns = [
                   path('', views.index, name="index"),
                   path('universe/<slug:uni>', views.universe, name='universe'),
                   path('hero/<int:hero>', views.hero, name='hero'),
+                  path('search', views.search, name='search'),
+                  # path('hero/<slug:query>', views.searchR, name='searchR'),
                   path('reviews/', include("Reviews.urls")),
                   path('account/', include("Users.urls")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

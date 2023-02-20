@@ -1,20 +1,59 @@
 {% extends 'Reviews/base.html' %}
 {% load static %}
-
-{% block title %} RTH - Iron Man {% endblock %}
-{% block header %} Iron Man {% endblock %}
+{% block site_styles %}
+    <link rel="stylesheet" href="{% static 'Reviews/styles/hero.css' %}">
+{% endblock %}
+{% block title %} RTH - {{ hero.name }} {% endblock %}
+{% block header %}<h1>{{ hero.name }}</h1>{% endblock %}
 {% block main %}
-    <span>Quantity of Reviews: 72</span>
-    <img src="" alt="ironman">
+    <div class="content">
+    <img src="../files/{{ hero.img }}" alt="{{ hero.name }}">
+    <br>
+    <h2>Numbers of Reviews: {{ hero.numbers }}
+        <br>
+        <a href="{% url 'addRev' hero.id %}">Rate now!</a>
+    </h2><br>
     <ul>
-    <li>Name: </li>
-    <li>Real name: </li>
-    <li>Age: </li>
-    <li>Universe: </li>
-    <li>Rating: </li>
+    <li>Name: {{ hero.name }} </li>
+    <li>Real name: {{ hero.real_name }} </li>
+    <li>Universe: {{ hero.universe.name }} </li>
+    <li>Rating: {% widthratio hero.quantity hero.numbers 1 %}</li>
     </ul>
-    <h3>Description</h3>
-    <p>Some info about Iron Man</p>
-    <h3>Superpowers</h3>
-    <p>Some Superpowers</p>
+    <h2>Description</h2>
+    <div class="desc">
+        {{ hero.desc }}
+    </div>
+    <h2>Superpowers</h2>
+    <div class="superpowers">
+    {{ hero.superpowers }}
+    </div>
+    {% if best_reviews.all and last_reviews.all %}
+    <div class="reviews">
+    <h2>Best reviews</h2>
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Review</th>
+    </tr>
+        {% for review in best_reviews %}
+            {% include "Reviews/revtable.html" with name=review.name rating=review.rating text=review.text id=review.id %}
+        {% endfor %}
+    </table>
+    </div>
+    <div class="reviews">
+    <h2>Last reviews</h2>
+        <table>
+    <tr>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Review</th>
+    </tr>
+        {% for review in last_reviews %}
+            {% include "Reviews/revtable.html" with name=review.name rating=review.rating text=review.text id=review.id %}
+        {% endfor %}
+    </table>
+    </div>
+        {% endif %}
+    </div>
 {% endblock %}

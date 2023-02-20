@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "Reviews/base.html" %}
+{% load static %}
+{% block site_styles %}
+    <link rel="stylesheet" href="{% static 'Users/styles/myprofile.css' %}">
+{% endblock %}
+{% block title %}Wrong address{% endblock %}
+{% block header %}<h1>Ooooopsss</h1>{% endblock %}
+{% block main %}
+    <div class="not-profile">
+    <span>Oooppssss you are not allowed to visit this page.</span>
+        <br>
+    <a href="{% url 'myProfile' username|slugify %}"><h3>Go to your Profile</h3></a>
+    </div>
+{% endblock %}

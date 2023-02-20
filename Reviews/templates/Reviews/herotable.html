@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<table>
+<tr>
+    <th>Hero</th>
+    <th>Name</th>
+    <th colspan="2">Rating</th>
+</tr>
+        {% for hero in heroes %}
+    <tr>
+        <td>
+            <a href="{% url 'hero' hero.id %}">
+            <img src="../files/{{ hero.img }}" alt="hero.name">
+            </a>
+        </td>
+        <td>{{ hero.name }}</td>
+        <td>{% widthratio hero.quantity hero.numbers 1 %}/10</td>
+        <td><a href="{% url 'addRev' hero.id %}"><h4>Rate</h4></a></td>
+    </tr>
+            {% endfor %}
+    </table>

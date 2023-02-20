@@ -1,0 +1,26 @@
+.content
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+table {
+  border-collapse: collapse;
+  width: 90%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+td:hover {
+  background-color: #ddd;
+}
+
+img
+{
+    width: 300px;
+    height: 168px;
+}
