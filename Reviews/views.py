@@ -10,7 +10,7 @@ from django.contrib import messages
 
 
 def index(request):
-    universal = Universe.objects.all()
+    universes= Universe.objects.all()
     heroes = Hero.objects.all()
     bestRated = []
     for hero in heroes:
@@ -26,7 +26,7 @@ def index(request):
         })
     bestRated = sorted(bestRated, key=lambda x: x["avg"], reverse=True)[:5]
     context = {"username": '',
-               "universal": universal,
+               "universes": universes,
                "mostRated": heroes.order_by("-numbers")[:5],
                "bestRated": bestRated,
                "reviews": ''}
@@ -40,7 +40,10 @@ def universe(request, uni):
     heroes = Hero.objects.all().filter(universe=universe)
     avg = {}
     for hero in heroes:
-        hero.avg = hero.quantity/hero.numbers
+        if hero.numbers != 0:
+            hero.avg = hero.quantity/hero.numbers
+        else:
+            hero.avg = 0
     return render(request, "Reviews/universe.html", {
         "universe": universe.name,
         "heroes": heroes})
@@ -48,7 +51,10 @@ def universe(request, uni):
 
 def hero(request, hero):
     selected_hero = Hero.objects.get(id=hero)
-    selected_hero.avg = selected_hero.quantity/selected_hero.numbers
+    if selected_hero.numbers != 0:
+        selected_hero.avg = selected_hero.quantity/selected_hero.numbers
+    else:
+        selected_hero.avg = selected_hero.quantity / selected_hero.numbers
     last_reviews = Review.objects.filter(hero=selected_hero)[:5]
     best_reviews = Review.objects.filter(hero=selected_hero).order_by('-rating')[:5]
     return render(request, "Reviews/hero.html", {

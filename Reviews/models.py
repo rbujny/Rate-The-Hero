@@ -6,7 +6,7 @@ from django.db import models
 
 class Universe(models.Model):
     class Meta:
-        verbose_name_plural = "Universal"
+        verbose_name_plural = "Universes"
 
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True)
