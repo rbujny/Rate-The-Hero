@@ -4,7 +4,7 @@
 {% block site_styles %}
     <link rel="stylesheet" href="{% static 'Reviews/styles/universe.css' %}">
 {% endblock %}
-{% block header %}<h1 style="text-transform: uppercase">Marvel</h1>{% endblock %}
+{% block header %}<h1 style="text-transform: uppercase">{{ universe }}</h1>{% endblock %}
 {% block main %}
     <div class="content">
    {% include "Reviews/herotable.html" with heroes=heroes avg=avg %}
