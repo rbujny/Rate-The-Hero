@@ -18,12 +18,12 @@
     </div>
 {% endblock %}
 {% block header %}
-    <h1 class="trans">Rate the Heroe</h1>
+    <h1 class="trans">Rate the Heroes</h1>
 {% endblock %}
 {% block main %}
-            <h2 class="trans">Universal</h2>
+            <h2 class="trans">Universes</h2>
     <div class="universe-select">
-        {% for universe in universal %}
+        {% for universe in universes %}
             <div class="universe">
             <a href="{% url 'universe' universe.slug %}">
                 <img src="files/{{ universe.img }}" alt="{{ universe.name }}">

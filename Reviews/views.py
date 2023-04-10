@@ -10,7 +10,7 @@ from django.contrib import messages
 
 
 def index(request):
-    universes= Universe.objects.all()
+    universes = Universe.objects.all()
     heroes = Hero.objects.all()
     bestRated = []
     for hero in heroes:
@@ -54,7 +54,7 @@ def hero(request, hero):
     if selected_hero.numbers != 0:
         selected_hero.avg = selected_hero.quantity/selected_hero.numbers
     else:
-        selected_hero.avg = selected_hero.quantity / selected_hero.numbers
+        selected_hero.avg = 0
     last_reviews = Review.objects.filter(hero=selected_hero)[:5]
     best_reviews = Review.objects.filter(hero=selected_hero).order_by('-rating')[:5]
     return render(request, "Reviews/hero.html", {
